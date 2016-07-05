@@ -1,0 +1,29 @@
+{
+  "name": "open-rest-access-log",
+  "version": "0.1.0",
+  "description": "open-rest-plugin-access-log",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/open-node/open-rest-access-log.git"
+  },
+  "keywords": [
+    "open-rest",
+    "access-log"
+  ],
+  "author": "Redstone Zhao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/open-node/open-rest-access-log/issues"
+  },
+  "homepage": "https://github.com/open-node/open-rest-access-log#readme",
+  "dependencies": {
+    "assert-plus": "^1.0.0",
+    "file-stream-rotator": "0.0.6",
+    "moment": "^2.14.1",
+    "morgan": "^1.7.0"
+  }
+}

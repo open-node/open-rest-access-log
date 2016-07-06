@@ -9,9 +9,17 @@ module.exports = function(logpath, dateTimeFormat, logFormat) {
   assert.string(dateTimeFormat, 'dateTimeFormat');
   // format logPath
   if (logpath.indexOf(".log") > -1) {
-    logpath = logpath.replace(/\.log$/gi, "-%DATE%.log")
+    logpath = logpath.replace(/\.log$/gi, "-%DATE%.log");
   } else {
-    logpath = "#{logpath}-%DATE%.log"
+    logpath = `${logpath}-%DATE%.log`;
+  }
+
+  if (!logFormat) {
+    logFormat = [
+      ':remote-addr - :remote-user [:date] ":method :url HTTP/:http-version"',
+      ':status :res[content-length] ":referrer" ":user-agent"',
+      ':response-time'
+    ].join(' ');
   }
 
   // prepare a rotating write stream
@@ -21,14 +29,6 @@ module.exports = function(logpath, dateTimeFormat, logFormat) {
     verbose: false,
     date_format: "YYYYMMDD"
   });
-
-  if (!logFormat) {
-    logFormat = [
-      ':remote-addr - :remote-user [:date] ":method :url HTTP/:http-version"'
-      ':status :res[content-length] ":referrer" ":user-agent"'
-      ':response-time'
-    ].join(' ');
-  }
 
   morgan.token('remote-addr', function(req, res) {
     return [req._clientIp, req._realIp, req._remoteIp].join(' - ');
@@ -40,10 +40,10 @@ module.exports = function(logpath, dateTimeFormat, logFormat) {
     return moment().format(dateTimeFormat);
   });
   morgan.token('req-body', function(req, res) {
-    return JSON.stringify req.body;
+    return JSON.stringify(req.body);
   });
 
-  return morgan(logFormat, { stream });
+  return morgan(logFormat, { stream: stream });
 };
 
 

@@ -14,8 +14,7 @@ describe('open-rest-access-log', function testUnit() {
 
       const ware = middle(`${__dirname}/access`, 'YYYY-MM-DD HH:mm:ss', null, true);
       assert.ok(ware instanceof Function);
-      const req = new http.ClientRequest();
-      Object.assign(req, {
+      const req = {
         _clientIp: '192.168.4.114',
         _realIp: '192.168.4.191',
         _remoteIp: '127.0.0.1',
@@ -28,8 +27,13 @@ describe('open-rest-access-log', function testUnit() {
         body: {
           hello: 'world',
         },
-      });
-      const res = new http.ServerResponse(req);
+      };
+      const res = {
+        finished: false,
+        end() {
+          this.finished = true;
+        },
+      };
 
       ware(req, res, (error) => {
         res.end();
@@ -62,8 +66,7 @@ describe('open-rest-access-log', function testUnit() {
       ].join(' ');
       const ware = middle(`${__dirname}/access.log`, 'YYYY-MM-DD HH:mm:ss', logFormat, true);
       assert.ok(ware instanceof Function);
-      const req = new http.ClientRequest();
-      Object.assign(req, {
+      const req = {
         _clientIp: '192.168.4.114',
         _realIp: '192.168.4.191',
         _remoteIp: '127.0.0.1',
@@ -76,8 +79,15 @@ describe('open-rest-access-log', function testUnit() {
         body: {
           hello: 'world',
         },
-      });
-      const res = new http.ServerResponse(req);
+      };
+      const res = {
+        finished: false,
+        end() {
+          this.finished = true;
+        },
+        on() {
+        },
+      };
 
       ware(req, res, (error) => {
         res.end();
@@ -106,8 +116,7 @@ describe('open-rest-access-log', function testUnit() {
 
       const ware = middle(`${__dirname}/access.log`, 'YYYY-MM-DD HH:mm:ss');
       assert.ok(ware instanceof Function);
-      const req = new http.ClientRequest();
-      Object.assign(req, {
+      const req = {
         _clientIp: '192.168.4.114',
         _realIp: '192.168.4.191',
         _remoteIp: '127.0.0.1',
@@ -120,8 +129,15 @@ describe('open-rest-access-log', function testUnit() {
         body: {
           hello: 'world',
         },
-      });
-      const res = new http.ServerResponse(req);
+      };
+      const res = {
+        finished: false,
+        end() {
+          this.finished = true;
+        },
+        on() {
+        },
+      };
 
       ware(req, res, (error) => {
         res.end();

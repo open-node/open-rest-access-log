@@ -1,10 +1,12 @@
 {
   "name": "open-rest-access-log",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "open-rest-plugin-access-log",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "_test": "mocha",
+    "test": "npm run eslint && nyc --reporter=lcov --reporter=text-summary npm run _test",
+    "eslint": "eslint {./index.js,./test} && echo '\u001b[32m\u001b[1mEslint validate success.\u001b[22m\u001b[39m'"
   },
   "repository": {
     "type": "git",
@@ -25,5 +27,17 @@
     "file-stream-rotator": "0.0.6",
     "moment": "^2.14.1",
     "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "open-rest": "*",
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.10.0",
+    "eslint-config-airbnb": "^10.0.1",
+    "eslint-plugin-import": "^1.16.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.4.1",
+    "mocha": "^3.0.2",
+    "codecov": "^1.0.1",
+    "nyc": "^10.0.0"
   }
 }

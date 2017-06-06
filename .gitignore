@@ -1,1 +1,10 @@
+.DS_*
 node_modules
+*.sublime*
+psd
+thumb
+*.log
+*~
+.nyc_output/
+coverage
+coverage/*
